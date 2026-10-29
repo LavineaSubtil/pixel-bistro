@@ -8,6 +8,8 @@
   <img src="https://img.shields.io/badge/HTML%2FCSS%2FJS-9D4EDD?style=flat-square&logo=html5&logoColor=white"/>
 </p>
 
+<p align="center">🎮 <a href="https://pixel-bistro-site.vercel.app"><b>Testar o site ao vivo</b></a></p>
+
 <p align="center"><img src="docs/site.png" alt="Site do Pixel Bistrô" width="85%"/></p>
 
 ## 🎯 O problema
