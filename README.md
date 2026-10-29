@@ -80,7 +80,7 @@ Use o [n8n Cloud](https://n8n.io) (tem período de teste) ou rode localmente com
 2. Publique na Vercel: importe o repositório e defina **Root Directory** como `site`.
 3. Abra o site, envie uma avaliação com nota baixa e veja o NPC responder e o alerta chegar no seu e-mail.
 
-> Para trocar o modelo, mude `modeloGemini` no nó Config. O padrão `gemini-flash-latest` aponta sempre para o Flash mais recente.
+> Para trocar o modelo, mude `modeloGemini` no nó Config. O padrão é `gemini-3.1-flash-lite`, que está no plano gratuito e responde rápido.
 
 ## 📸 Prévia do e-mail semanal
 

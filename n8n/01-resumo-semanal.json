@@ -48,7 +48,7 @@
             {
               "id": "0d5520e8-8c14-4d3d-93a0-d9500c2e3f54",
               "name": "modeloGemini",
-              "value": "gemini-flash-latest",
+              "value": "gemini-3.1-flash-lite",
               "type": "string"
             },
             {
