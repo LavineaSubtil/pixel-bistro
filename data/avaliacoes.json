@@ -1,0 +1,165 @@
+{
+ "restaurante": "Pixel Bistrô",
+ "cidade": "Vitória/ES",
+ "periodo": {
+  "inicio": "2026-10-19",
+  "fim": "2026-10-25"
+ },
+ "aviso": "Dados fictícios criados para demonstração.",
+ "avaliacoes": [
+  {
+   "id": "A003",
+   "pedidoId": "P053",
+   "data": "2026-10-19",
+   "nota": 5,
+   "comentario": "Moqueca maravilhosa, tempero de casa de vó. Vou pedir de novo."
+  },
+  {
+   "id": "A010",
+   "pedidoId": "P050",
+   "data": "2026-10-19",
+   "nota": 5,
+   "comentario": "O cookie moeda de ouro é viciante. A cartinha que veio junto fez meu dia."
+  },
+  {
+   "id": "A016",
+   "pedidoId": "P034",
+   "data": "2026-10-19",
+   "nota": 5,
+   "comentario": "Atendimento no chat foi super simpático quando pedi para tirar a cebola."
+  },
+  {
+   "id": "A021",
+   "pedidoId": "P005",
+   "data": "2026-10-19",
+   "nota": 2,
+   "comentario": "Veio torta de frango no lugar da torta de sururu."
+  },
+  {
+   "id": "A001",
+   "pedidoId": "P025",
+   "data": "2026-10-20",
+   "nota": 5,
+   "comentario": "O Hambúrguer 8-bit é perfeito, chegou quentinho e a embalagem de pixel é muito fofa!"
+  },
+  {
+   "id": "A009",
+   "pedidoId": "P036",
+   "data": "2026-10-20",
+   "nota": 2,
+   "comentario": "Atrasou 25 minutos e o hambúrguer veio frio."
+  },
+  {
+   "id": "A017",
+   "pedidoId": "P002",
+   "data": "2026-10-20",
+   "nota": 3,
+   "comentario": "Normal. Nada de especial, nada de ruim."
+  },
+  {
+   "id": "A004",
+   "pedidoId": "P037",
+   "data": "2026-10-21",
+   "nota": 1,
+   "comentario": "Pedi o Combo Level Up e veio sem o refrigerante. Ninguém respondeu no chat."
+  },
+  {
+   "id": "A007",
+   "pedidoId": "P043",
+   "data": "2026-10-21",
+   "nota": 5,
+   "comentario": "Melhor torta de sururu da Grande Vitória, sério."
+  },
+  {
+   "id": "A008",
+   "pedidoId": "P047",
+   "data": "2026-10-21",
+   "nota": 4,
+   "comentario": "Gostei muito, só achei o hambúrguer um pouco salgado."
+  },
+  {
+   "id": "A012",
+   "pedidoId": "P031",
+   "data": "2026-10-21",
+   "nota": 1,
+   "comentario": "Encontrei um fio de cabelo na moqueca. Muito decepcionante."
+  },
+  {
+   "id": "A022",
+   "pedidoId": "P040",
+   "data": "2026-10-21",
+   "nota": 4,
+   "comentario": "Moqueca ótima, mas o arroz estava meio empapado."
+  },
+  {
+   "id": "A015",
+   "pedidoId": "P048",
+   "data": "2026-10-22",
+   "nota": 2,
+   "comentario": "O açaí derreteu todo e vazou na sacola."
+  },
+  {
+   "id": "A019",
+   "pedidoId": "P045",
+   "data": "2026-10-22",
+   "nota": 1,
+   "comentario": "Cobraram duas vezes no cartão e até agora não estornaram."
+  },
+  {
+   "id": "A002",
+   "pedidoId": "P029",
+   "data": "2026-10-23",
+   "nota": 2,
+   "comentario": "Demorou quase uma hora e a batata chegou mole e fria."
+  },
+  {
+   "id": "A005",
+   "pedidoId": "P023",
+   "data": "2026-10-23",
+   "nota": 4,
+   "comentario": "Poção de Açaí muito boa, mas achei a porção pequena pelo preço."
+  },
+  {
+   "id": "A018",
+   "pedidoId": "P035",
+   "data": "2026-10-23",
+   "nota": 4,
+   "comentario": "Combo Level Up bem servido, chegou no horário."
+  },
+  {
+   "id": "A006",
+   "pedidoId": "P024",
+   "data": "2026-10-24",
+   "nota": 3,
+   "comentario": "Comida boa, mas o entregador não achou o prédio e tive que descer."
+  },
+  {
+   "id": "A013",
+   "pedidoId": "P010",
+   "data": "2026-10-24",
+   "nota": 5,
+   "comentario": "Entrega rápida, tudo certinho e muito saboroso."
+  },
+  {
+   "id": "A011",
+   "pedidoId": "P042",
+   "data": "2026-10-25",
+   "nota": 3,
+   "comentario": "Bom, mas caro para o tamanho da porção."
+  },
+  {
+   "id": "A014",
+   "pedidoId": "P056",
+   "data": "2026-10-25",
+   "nota": 4,
+   "comentario": "A batata power-up é crocante de verdade. Faltou só mais molho."
+  },
+  {
+   "id": "A020",
+   "pedidoId": "P027",
+   "data": "2026-10-25",
+   "nota": 5,
+   "comentario": "Amei a identidade visual, a embalagem parece um cartucho de videogame!"
+  }
+ ]
+}

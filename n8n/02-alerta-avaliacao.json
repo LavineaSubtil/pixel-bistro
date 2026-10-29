@@ -1,0 +1,285 @@
+{
+  "name": "Pixel Bistrô · Alerta de avaliação em tempo real",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "pixel-bistro-avaliacao",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "652e82f1-8c64-45ec-a582-b8a72656bffb",
+      "name": "Nova avaliação (Webhook)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        300
+      ],
+      "webhookId": "5c416fb2-e25b-4d15-9ac2-80c3835e55cf"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3a9ac4c8-18f4-4616-b6b5-c91a0073ee65",
+              "name": "emailDestino",
+              "value": "seu-email@gmail.com",
+              "type": "string"
+            },
+            {
+              "id": "9ce25ee6-e637-49bb-ac02-6e13e0dcb846",
+              "name": "modeloGemini",
+              "value": "gemini-flash-latest",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "includeOtherFields": true
+      },
+      "id": "ef84845b-febc-48cd-9cef-93c9ef98335a",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nó \"Validar avaliação\" (Code): confere os dados que chegaram do site\nconst corpo = $input.first().json.body || {};\nconst nota = Number(corpo.nota);\nconst comentario = String(corpo.comentario || '').trim().slice(0, 1000);\n\nif (!(nota >= 1 && nota <= 5)) throw new Error('A nota precisa ser de 1 a 5.');\nif (comentario.length < 3) throw new Error('Escreva um comentário.');\n\nreturn [{\n  json: {\n    nome: String(corpo.nome || 'Aventureiro anônimo').trim().slice(0, 60),\n    pedido: String(corpo.pedido || 'Não informado').trim().slice(0, 80),\n    nota,\n    comentario,\n    recebidaEm: new Date().toISOString(),\n  },\n}];\n"
+      },
+      "id": "ba59511e-9b6b-4415-bcd4-32da793c40b2",
+      "name": "Validar avaliação",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/{{ $('Config').first().json.modeloGemini }}:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n contents: [{ role: 'user', parts: [{ text: 'Você é o NPC atendente do Pixel Bistrô, um restaurante de delivery com tema de videogame em pixel art em Vitória/ES. Analise a avaliação de um cliente. Depois escreva uma resposta curta (até 3 frases) para o cliente, em português do Brasil, gentil e com um toque leve de linguagem de games; se houver problema, peça desculpas e diga que a equipe vai entrar em contato, sem prometer reembolso. Também sugira uma ação interna para o dono do restaurante.\\n\\nAVALIAÇÃO:\\n' + JSON.stringify({ nome: $json.nome, pedido: $json.pedido, nota: $json.nota, comentario: $json.comentario }) }] }],\n generationConfig: {\n  responseMimeType: 'application/json',\n  responseSchema: {\n   type: 'OBJECT',\n   properties: {\n    sentimento: { type: 'STRING', enum: ['positivo', 'neutro', 'negativo'] },\n    temas: { type: 'ARRAY', items: { type: 'STRING', enum: ['sabor', 'temperatura', 'atraso', 'pedido_errado', 'item_faltando', 'porcao_preco', 'embalagem', 'entrega', 'atendimento', 'higiene', 'pagamento', 'identidade_visual'] } },\n    urgente: { type: 'BOOLEAN', description: 'true para higiene, cobrança indevida, pedido errado, item faltando ou nota 1' },\n    motivo: { type: 'STRING', description: 'Explicação curta da classificação' },\n    respostaCliente: { type: 'STRING' },\n    sugestaoAcao: { type: 'STRING' }\n   },\n   required: ['sentimento', 'temas', 'urgente', 'motivo', 'respostaCliente', 'sugestaoAcao']\n  }\n }\n}) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "89dd1314-713c-46d4-ac25-2f65910b4f13",
+      "name": "Agente NPC · Analisar e responder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        860,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Gemini API Key"
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nó \"Ler análise\" (Code): junta a avaliação com a análise do Gemini\nconst resposta = $input.first().json;\nconst texto = resposta.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '{}';\nlet analise;\ntry {\n  analise = JSON.parse(texto);\n} catch (e) {\n  throw new Error('O Gemini não devolveu um JSON válido: ' + texto.slice(0, 300));\n}\nconst avaliacao = $('Validar avaliação').first().json;\nconst precisaAlerta = Boolean(analise.urgente) || avaliacao.nota <= 2 || analise.sentimento === 'negativo';\n\nreturn [{ json: { ...avaliacao, ...analise, precisaAlerta } }];\n"
+      },
+      "id": "606805cc-0fe2-4402-b592-f252e67084d3",
+      "name": "Ler análise",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, resposta: $json.respostaCliente, sentimento: $json.sentimento }) }}",
+        "options": {}
+      },
+      "id": "652fafea-6847-46b9-a585-58e496756274",
+      "name": "Responder ao site",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "e75de971-4986-43e0-9cdf-69dcbc918b2b",
+              "leftValue": "={{ $json.precisaAlerta }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "cb203825-7a26-4f23-95a1-817224838f65",
+      "name": "Precisa de alerta?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Config').first().json.emailDestino }}",
+        "subject": "=🚨 Avaliação {{ $json.nota }}/5 no Pixel Bistrô: {{ $json.temas.join(', ') }}",
+        "message": "=<div style=\"font-family:Arial,sans-serif;max-width:600px;border:4px solid #c2185b\"><div style=\"background:#c2185b;color:#fff;padding:14px 18px;font-weight:bold\">🚨 Alerta de avaliação · Pixel Bistrô</div><div style=\"padding:16px 18px;color:#1a1033;line-height:1.5\"><p><b>Cliente:</b> {{ $json.nome }}<br><b>Pedido:</b> {{ $json.pedido }}<br><b>Nota:</b> {{ $json.nota }}/5 · <b>Sentimento:</b> {{ $json.sentimento }}<br><b>Temas:</b> {{ $json.temas.join(', ') }}</p><p style=\"background:#fdeef4;padding:10px;border-left:4px solid #c2185b\">“{{ $json.comentario }}”</p><p><b>Por que é um alerta:</b> {{ $json.motivo }}</p><p><b>Ação sugerida:</b> {{ $json.sugestaoAcao }}</p><p><b>Resposta enviada ao cliente:</b> {{ $json.respostaCliente }}</p></div></div>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "f27d2872-a6f2-439a-bcf0-11b872fceee7",
+      "name": "Enviar alerta por e-mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1740,
+        200
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "5f326b6c-a3ab-41a3-9a3b-3aa1c5774268"
+    },
+    {
+      "parameters": {
+        "content": "## 🚨 Pixel Bistrô · Alerta em tempo real\nO site envia cada nova avaliação para este webhook. O **agente NPC (Gemini)** classifica a avaliação e escreve a resposta que o cliente vê na hora. Se for negativa, urgente ou nota ≤ 2, o dono recebe um alerta por e-mail com uma ação sugerida.\n\n**Antes de ativar:** edite o **Config** e escolha as credenciais. Depois copie a *Production URL* do webhook para o `site/config.js`.",
+        "height": 220,
+        "width": 620,
+        "color": 3
+      },
+      "id": "2a37ff52-a096-425c-b796-5b2cdd77a6f7",
+      "name": "Nota 8002b8",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -60
+      ]
+    }
+  ],
+  "connections": {
+    "Nova avaliação (Webhook)": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Validar avaliação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar avaliação": {
+      "main": [
+        [
+          {
+            "node": "Agente NPC · Analisar e responder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agente NPC · Analisar e responder": {
+      "main": [
+        [
+          {
+            "node": "Ler análise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ler análise": {
+      "main": [
+        [
+          {
+            "node": "Responder ao site",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responder ao site": {
+      "main": [
+        [
+          {
+            "node": "Precisa de alerta?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Precisa de alerta?": {
+      "main": [
+        [
+          {
+            "node": "Enviar alerta por e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {}
+}

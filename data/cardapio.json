@@ -1,0 +1,40 @@
+{
+ "restaurante": "Pixel Bistrô",
+ "itens": [
+  {
+   "id": "burger-8bit",
+   "nome": "Hambúrguer 8-bit",
+   "preco": 34.9
+  },
+  {
+   "id": "moqueca",
+   "nome": "Moqueca Capixaba Level Max",
+   "preco": 62.0
+  },
+  {
+   "id": "combo-levelup",
+   "nome": "Combo Level Up",
+   "preco": 45.9
+  },
+  {
+   "id": "pocao-acai",
+   "nome": "Poção de Açaí",
+   "preco": 22.5
+  },
+  {
+   "id": "batata-power",
+   "nome": "Batata Power-Up",
+   "preco": 18.0
+  },
+  {
+   "id": "torta-sururu",
+   "nome": "Torta de Sururu",
+   "preco": 39.9
+  },
+  {
+   "id": "cookie-coin",
+   "nome": "Cookie Moeda de Ouro",
+   "preco": 9.5
+  }
+ ]
+}

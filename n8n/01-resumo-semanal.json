@@ -1,0 +1,373 @@
+{
+  "name": "Pixel Bistrô · Resumo semanal de pedidos e avaliações",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "2c16e79e-1bb5-4a8c-b538-42b1004dc2db",
+      "name": "Toda segunda às 9h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        200,
+        200
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0f72444b-a955-48c3-a783-49c53bf9d5bf",
+      "name": "Testar agora",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d4b11565-4528-4d3b-99fd-35acf6f6d26b",
+              "name": "emailDestino",
+              "value": "seu-email@gmail.com",
+              "type": "string"
+            },
+            {
+              "id": "0d5520e8-8c14-4d3d-93a0-d9500c2e3f54",
+              "name": "modeloGemini",
+              "value": "gemini-flash-latest",
+              "type": "string"
+            },
+            {
+              "id": "a18050a6-4bc1-49d8-999b-b741bd8e2f26",
+              "name": "urlDados",
+              "value": "https://raw.githubusercontent.com/LavineaSubtil/pixel-bistro/main/data",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "15a461b9-fd89-46eb-b66a-ad9950cb8edb",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Config').first().json.urlDados }}/pedidos.json",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "bccf5eae-99f9-47c2-985d-e57976294ea8",
+      "name": "Buscar pedidos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Config').first().json.urlDados }}/avaliacoes.json",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "77068dd1-18da-4229-968a-641b46a11836",
+      "name": "Buscar avaliações",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nó \"Calcular métricas\" (Code, executa uma vez para todos os itens)\nconst pedidosResp = $('Buscar pedidos').first().json;\nconst avaliacoesResp = $('Buscar avaliações').first().json;\nconst pedidos = pedidosResp.pedidos || [];\nconst avaliacoes = avaliacoesResp.avaliacoes || [];\n\nconst brl = (v) => Number(v.toFixed(2));\nconst faturamento = pedidos.reduce((s, p) => s + p.total, 0);\n\nconst porPrato = {};\nfor (const p of pedidos) {\n  for (const it of p.itens) {\n    porPrato[it.item] = (porPrato[it.item] || 0) + it.qtd;\n  }\n}\nconst topPratos = Object.entries(porPrato)\n  .sort((a, b) => b[1] - a[1])\n  .slice(0, 3)\n  .map(([prato, qtd]) => ({ prato, qtd }));\n\nconst atrasados = pedidos.filter((p) => p.tempoEntregaMin > p.tempoPrometidoMin + 5);\nconst tempoMedio = pedidos.length\n  ? pedidos.reduce((s, p) => s + p.tempoEntregaMin, 0) / pedidos.length\n  : 0;\n\nconst porBairro = {};\nfor (const p of pedidos) porBairro[p.bairro] = (porBairro[p.bairro] || 0) + 1;\nconst bairroTop = Object.entries(porBairro).sort((a, b) => b[1] - a[1])[0] || ['-', 0];\n\nconst notas = avaliacoes.map((a) => a.nota);\nconst notaMedia = notas.length ? notas.reduce((s, n) => s + n, 0) / notas.length : 0;\nconst distribuicaoNotas = [1, 2, 3, 4, 5].map((n) => ({ nota: n, qtd: notas.filter((x) => x === n).length }));\n\nreturn [{\n  json: {\n    restaurante: pedidosResp.restaurante,\n    periodo: pedidosResp.periodo,\n    metricas: {\n      totalPedidos: pedidos.length,\n      faturamento: brl(faturamento),\n      ticketMedio: brl(pedidos.length ? faturamento / pedidos.length : 0),\n      topPratos,\n      tempoMedioEntregaMin: Math.round(tempoMedio),\n      pedidosAtrasados: atrasados.length,\n      percentualAtrasos: pedidos.length ? Math.round((atrasados.length / pedidos.length) * 100) : 0,\n      bairroComMaisPedidos: { bairro: bairroTop[0], pedidos: bairroTop[1] },\n      totalAvaliacoes: avaliacoes.length,\n      notaMedia: Number(notaMedia.toFixed(1)),\n      distribuicaoNotas,\n    },\n    avaliacoes: avaliacoes.map((a) => ({ id: a.id, nota: a.nota, comentario: a.comentario })),\n  },\n}];\n"
+      },
+      "id": "d704a7d9-b62d-4a36-9d11-e71c2a4166e8",
+      "name": "Calcular métricas",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/{{ $('Config').first().json.modeloGemini }}:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n contents: [{ role: 'user', parts: [{ text: 'Você é analista de experiência do cliente do restaurante de delivery ' + $json.restaurante + '. Classifique CADA avaliação abaixo. Para cada uma, diga o sentimento, os temas citados (use só os temas permitidos), se é urgente (true quando envolve higiene, cobrança indevida, pedido errado ou item faltando, ou quando a nota é 1) e um resumo de no máximo 12 palavras em português.\\n\\nAvaliações (JSON):\\n' + JSON.stringify($json.avaliacoes) }] }],\n generationConfig: {\n  responseMimeType: 'application/json',\n  responseSchema: {\n   type: 'ARRAY',\n   items: {\n    type: 'OBJECT',\n    properties: {\n     id: { type: 'STRING' },\n     nota: { type: 'INTEGER' },\n     sentimento: { type: 'STRING', enum: ['positivo', 'neutro', 'negativo'] },\n     temas: { type: 'ARRAY', items: { type: 'STRING', enum: ['sabor', 'temperatura', 'atraso', 'pedido_errado', 'item_faltando', 'porcao_preco', 'embalagem', 'entrega', 'atendimento', 'higiene', 'pagamento', 'identidade_visual'] } },\n     urgente: { type: 'BOOLEAN' },\n     resumo: { type: 'STRING' }\n    },\n    required: ['id', 'nota', 'sentimento', 'temas', 'urgente', 'resumo']\n   }\n  }\n }\n}) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "5849a355-5ca4-4dd6-a2a4-8aceb0be33ef",
+      "name": "Agente 1 · Classificar avaliações",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Gemini API Key"
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nó \"Ler classificação\" (Code): transforma a resposta do Gemini em dados\nconst resposta = $input.first().json;\nconst texto = resposta.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '[]';\nlet classificacoes;\ntry {\n  classificacoes = JSON.parse(texto);\n} catch (e) {\n  throw new Error('O Gemini não devolveu um JSON válido: ' + texto.slice(0, 300));\n}\n\nconst base = $('Calcular métricas').first().json;\nconst contar = (lista) => lista.reduce((acc, k) => ((acc[k] = (acc[k] || 0) + 1), acc), {});\n\nconst sentimentos = contar(classificacoes.map((c) => c.sentimento));\nconst temas = Object.entries(contar(classificacoes.flatMap((c) => c.temas || [])))\n  .sort((a, b) => b[1] - a[1])\n  .map(([tema, qtd]) => ({ tema, qtd }));\nconst urgentes = classificacoes\n  .filter((c) => c.urgente)\n  .map((c) => ({ ...c, comentario: (base.avaliacoes.find((a) => a.id === c.id) || {}).comentario }));\n\nreturn [{ json: { ...base, analise: { sentimentos, temas, urgentes, classificacoes } } }];\n"
+      },
+      "id": "b19cf377-1645-43dc-8396-c01736b283c8",
+      "name": "Ler classificação",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/{{ $('Config').first().json.modeloGemini }}:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n contents: [{ role: 'user', parts: [{ text: 'Você é consultor de restaurantes de delivery e escreve para o dono do ' + $json.restaurante + ', um restaurante com tema de videogame em pixel art. Com base nas métricas da semana e na análise das avaliações, escreva o relatório semanal em português do Brasil, direto e prático, com um leve toque de linguagem de games (sem exagerar). Use números concretos. Nas ações, dê passos específicos e possíveis de fazer na próxima semana, em ordem de prioridade.\\n\\nMÉTRICAS:\\n' + JSON.stringify($json.metricas) + '\\n\\nANÁLISE DAS AVALIAÇÕES:\\n' + JSON.stringify({ sentimentos: $json.analise.sentimentos, temas: $json.analise.temas, urgentes: $json.analise.urgentes }) }] }],\n generationConfig: {\n  responseMimeType: 'application/json',\n  responseSchema: {\n   type: 'OBJECT',\n   properties: {\n    titulo: { type: 'STRING', description: 'Título curto da semana, até 8 palavras' },\n    resumo: { type: 'STRING', description: 'Resumo da semana em 2 ou 3 frases' },\n    destaques: { type: 'ARRAY', items: { type: 'STRING' }, description: '2 a 4 pontos positivos' },\n    problemas: { type: 'ARRAY', items: { type: 'STRING' }, description: '2 a 4 problemas principais' },\n    acoes: { type: 'ARRAY', items: { type: 'STRING' }, description: '3 a 5 ações recomendadas' }\n   },\n   required: ['titulo', 'resumo', 'destaques', 'problemas', 'acoes']\n  }\n }\n}) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "c57b132f-8658-480b-9431-13467d44675b",
+      "name": "Agente 2 · Escrever relatório",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        520
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Gemini API Key"
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nó \"Montar e-mail\" (Code): monta o HTML do resumo semanal no estilo pixel\nconst dados = $('Ler classificação').first().json;\nconst resposta = $input.first().json;\nconst texto = resposta.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '{}';\nconst relatorio = JSON.parse(texto);\n\nconst m = dados.metricas;\nconst esc = (s) => String(s ?? '').replace(/[&<>\"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[c]));\nconst reais = (v) => 'R$ ' + v.toFixed(2).replace('.', ',').replace(/\\B(?=(\\d{3})+(?!\\d))/g, '.');\nconst lista = (itens) => itens.map((i) => `<li style=\"margin:0 0 6px\">${esc(i)}</li>`).join('');\nconst coracoes = (n) => '♥'.repeat(Math.round(n)) + '♡'.repeat(5 - Math.round(n));\n\nconst card = (titulo, valor) => `\n  <td style=\"padding:6px;width:25%\">\n    <div style=\"border:3px solid #1a1033;background:#f3eaff;padding:10px;box-shadow:4px 4px 0 #7b2ff7\">\n      <div style=\"font-size:11px;color:#5b4a7a;text-transform:uppercase\">${titulo}</div>\n      <div style=\"font-size:20px;font-weight:bold;color:#1a1033\">${valor}</div>\n    </div>\n  </td>`;\n\nconst urgentesHtml = dados.analise.urgentes.length\n  ? dados.analise.urgentes.map((u) => `<li style=\"margin:0 0 6px\"><b>${esc(u.id)}</b> (nota ${esc(u.nota ?? '')}) · ${esc(u.comentario)}</li>`).join('')\n  : '<li>Nenhuma avaliação urgente nesta semana. GG! 🎉</li>';\n\nconst html = `\n<div style=\"font-family:Arial,Helvetica,sans-serif;background:#1a1033;padding:24px\">\n <div style=\"max-width:640px;margin:0 auto;background:#ffffff;border:4px solid #b388ff\">\n  <div style=\"background:#7b2ff7;color:#fff;padding:18px 20px\">\n   <div style=\"font-family:'Courier New',monospace;font-size:12px;letter-spacing:2px\">▶ RELATÓRIO DO CHEF · ${esc(dados.periodo.inicio)} a ${esc(dados.periodo.fim)}</div>\n   <div style=\"font-size:24px;font-weight:bold;margin-top:6px\">${esc(relatorio.titulo)}</div>\n  </div>\n  <div style=\"padding:20px;color:#1a1033;font-size:14px;line-height:1.5\">\n   <p style=\"margin-top:0\">${esc(relatorio.resumo)}</p>\n   <table style=\"width:100%;border-collapse:collapse\"><tr>\n    ${card('Pedidos', m.totalPedidos)}${card('Faturamento', reais(m.faturamento))}${card('Ticket médio', reais(m.ticketMedio))}${card('Nota média', m.notaMedia + ' ' + coracoes(m.notaMedia))}\n   </tr></table>\n   <h3 style=\"font-family:'Courier New',monospace;color:#7b2ff7\">★ CONQUISTAS DA SEMANA</h3>\n   <ul style=\"padding-left:18px\">${lista(relatorio.destaques || [])}</ul>\n   <h3 style=\"font-family:'Courier New',monospace;color:#c2185b\">⚠ CHEFÕES PARA DERROTAR</h3>\n   <ul style=\"padding-left:18px\">${lista(relatorio.problemas || [])}</ul>\n   <h3 style=\"font-family:'Courier New',monospace;color:#7b2ff7\">➜ PRÓXIMAS MISSÕES</h3>\n   <ol style=\"padding-left:18px\">${lista(relatorio.acoes || [])}</ol>\n   <h3 style=\"font-family:'Courier New',monospace;color:#c2185b\">🚨 AVALIAÇÕES URGENTES</h3>\n   <ul style=\"padding-left:18px\">${urgentesHtml}</ul>\n   <p style=\"font-size:12px;color:#5b4a7a;border-top:2px dashed #b388ff;padding-top:10px;margin-bottom:0\">\n    Top pratos: ${m.topPratos.map((t) => `${esc(t.prato)} (${t.qtd})`).join(' · ')}<br>\n    Entregas atrasadas: ${m.pedidosAtrasados} de ${m.totalPedidos} (${m.percentualAtrasos}%) · Tempo médio: ${m.tempoMedioEntregaMin} min<br>\n    Gerado automaticamente pelo n8n + Gemini.\n   </p>\n  </div>\n </div>\n</div>`;\n\nreturn [{ json: { assunto: `🎮 ${dados.restaurante}: ${relatorio.titulo}`, html, relatorio, metricas: m } }];\n"
+      },
+      "id": "53eca3cc-0847-43a5-b8f6-9902b35d4070",
+      "name": "Montar e-mail",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Config').first().json.emailDestino }}",
+        "subject": "={{ $json.assunto }}",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "41057d23-6f61-4e79-afc8-3ea6d8db302f",
+      "name": "Enviar resumo por e-mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1760,
+        300
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "f9730bf9-5f51-43ec-bc9a-50f46af1bd18"
+    },
+    {
+      "parameters": {
+        "content": "## 🎮 Pixel Bistrô · Resumo semanal\nToda segunda, busca os pedidos e as avaliações da semana, calcula as métricas, usa **dois agentes com Gemini** (um classifica cada avaliação, outro escreve o relatório) e envia tudo por e-mail.\n\n**Antes de rodar:** edite o nó **Config** (seu e-mail) e escolha as credenciais nos nós do Gemini e do Gmail.",
+        "height": 220,
+        "width": 560,
+        "color": 6
+      },
+      "id": "baa5424e-17eb-40ea-9f96-0ccb356472a6",
+      "name": "Nota 67cccc",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -60
+      ]
+    }
+  ],
+  "connections": {
+    "Toda segunda às 9h": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Testar agora": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Buscar pedidos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar pedidos": {
+      "main": [
+        [
+          {
+            "node": "Buscar avaliações",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar avaliações": {
+      "main": [
+        [
+          {
+            "node": "Calcular métricas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular métricas": {
+      "main": [
+        [
+          {
+            "node": "Agente 1 · Classificar avaliações",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agente 1 · Classificar avaliações": {
+      "main": [
+        [
+          {
+            "node": "Ler classificação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ler classificação": {
+      "main": [
+        [
+          {
+            "node": "Agente 2 · Escrever relatório",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agente 2 · Escrever relatório": {
+      "main": [
+        [
+          {
+            "node": "Montar e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Montar e-mail": {
+      "main": [
+        [
+          {
+            "node": "Enviar resumo por e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {}
+}

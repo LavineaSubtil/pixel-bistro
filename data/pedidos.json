@@ -1,0 +1,1076 @@
+{
+ "restaurante": "Pixel Bistrô",
+ "cidade": "Vitória/ES",
+ "periodo": {
+  "inicio": "2026-10-19",
+  "fim": "2026-10-25"
+ },
+ "aviso": "Dados fictícios criados para demonstração.",
+ "pedidos": [
+  {
+   "id": "P046",
+   "data": "2026-10-19T12:12",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    },
+    {
+     "item": "Moqueca Capixaba Level Max",
+     "qtd": 1,
+     "preco": 62.0
+    }
+   ],
+   "total": 84.5,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 45
+  },
+  {
+   "id": "P012",
+   "data": "2026-10-19T12:28",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    },
+    {
+     "item": "Torta de Sururu",
+     "qtd": 1,
+     "preco": 39.9
+    }
+   ],
+   "total": 62.4,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 57
+  },
+  {
+   "id": "P054",
+   "data": "2026-10-19T18:01",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Moqueca Capixaba Level Max",
+     "qtd": 1,
+     "preco": 62.0
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 96.9,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 57
+  },
+  {
+   "id": "P053",
+   "data": "2026-10-19T18:17",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    },
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 75.4,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 47
+  },
+  {
+   "id": "P016",
+   "data": "2026-10-19T18:40",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 2,
+     "preco": 9.5
+    }
+   ],
+   "total": 53.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 30
+  },
+  {
+   "id": "P026",
+   "data": "2026-10-19T18:50",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    }
+   ],
+   "total": 45.9,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 45
+  },
+  {
+   "id": "P005",
+   "data": "2026-10-19T19:45",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    }
+   ],
+   "total": 22.5,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 52
+  },
+  {
+   "id": "P050",
+   "data": "2026-10-19T20:47",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 2,
+     "preco": 34.9
+    }
+   ],
+   "total": 115.7,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 47
+  },
+  {
+   "id": "P034",
+   "data": "2026-10-19T21:06",
+   "bairro": "Jardim da Penha",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    },
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    }
+   ],
+   "total": 109.8,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 47
+  },
+  {
+   "id": "P044",
+   "data": "2026-10-19T21:16",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    }
+   ],
+   "total": 22.5,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 37
+  },
+  {
+   "id": "P002",
+   "data": "2026-10-20T11:05",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 2,
+     "preco": 34.9
+    }
+   ],
+   "total": 115.7,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 30
+  },
+  {
+   "id": "P036",
+   "data": "2026-10-20T18:07",
+   "bairro": "Centro da Serra",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 2,
+     "preco": 18.0
+    }
+   ],
+   "total": 81.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 35
+  },
+  {
+   "id": "P025",
+   "data": "2026-10-20T18:12",
+   "bairro": "Centro da Serra",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    },
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    }
+   ],
+   "total": 80.8,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 40
+  },
+  {
+   "id": "P011",
+   "data": "2026-10-20T19:07",
+   "bairro": "Jardim da Penha",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 69.8,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 52
+  },
+  {
+   "id": "P032",
+   "data": "2026-10-20T19:09",
+   "bairro": "Jardim da Penha",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 2,
+     "preco": 22.5
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    }
+   ],
+   "total": 81.0,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 32
+  },
+  {
+   "id": "P051",
+   "data": "2026-10-20T20:18",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    }
+   ],
+   "total": 45.9,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 65
+  },
+  {
+   "id": "P057",
+   "data": "2026-10-20T20:23",
+   "bairro": "Centro da Serra",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 2,
+     "preco": 45.9
+    }
+   ],
+   "total": 91.8,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 37
+  },
+  {
+   "id": "P047",
+   "data": "2026-10-21T11:00",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    }
+   ],
+   "total": 18.0,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 70
+  },
+  {
+   "id": "P043",
+   "data": "2026-10-21T11:51",
+   "bairro": "Centro da Serra",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    }
+   ],
+   "total": 45.9,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 32
+  },
+  {
+   "id": "P001",
+   "data": "2026-10-21T12:25",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 34.9,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 32
+  },
+  {
+   "id": "P049",
+   "data": "2026-10-21T12:53",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    }
+   ],
+   "total": 45.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 32
+  },
+  {
+   "id": "P052",
+   "data": "2026-10-21T13:21",
+   "bairro": "Jardim da Penha",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 90.3,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 40
+  },
+  {
+   "id": "P031",
+   "data": "2026-10-21T13:34",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Torta de Sururu",
+     "qtd": 1,
+     "preco": 39.9
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    }
+   ],
+   "total": 49.4,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 52
+  },
+  {
+   "id": "P040",
+   "data": "2026-10-21T19:29",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Batata Power-Up",
+     "qtd": 2,
+     "preco": 18.0
+    },
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    }
+   ],
+   "total": 81.9,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 40
+  },
+  {
+   "id": "P015",
+   "data": "2026-10-21T19:36",
+   "bairro": "Jardim da Penha",
+   "itens": [
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    },
+    {
+     "item": "Combo Level Up",
+     "qtd": 2,
+     "preco": 45.9
+    }
+   ],
+   "total": 101.3,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 52
+  },
+  {
+   "id": "P037",
+   "data": "2026-10-21T21:07",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    }
+   ],
+   "total": 9.5,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 37
+  },
+  {
+   "id": "P045",
+   "data": "2026-10-22T11:21",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    },
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    }
+   ],
+   "total": 90.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 32
+  },
+  {
+   "id": "P048",
+   "data": "2026-10-22T11:42",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Batata Power-Up",
+     "qtd": 2,
+     "preco": 18.0
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    }
+   ],
+   "total": 45.5,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 45
+  },
+  {
+   "id": "P038",
+   "data": "2026-10-22T12:47",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 2,
+     "preco": 45.9
+    }
+   ],
+   "total": 91.8,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 35
+  },
+  {
+   "id": "P007",
+   "data": "2026-10-22T13:46",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Moqueca Capixaba Level Max",
+     "qtd": 1,
+     "preco": 62.0
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 2,
+     "preco": 34.9
+    }
+   ],
+   "total": 131.8,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 40
+  },
+  {
+   "id": "P008",
+   "data": "2026-10-22T18:02",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    }
+   ],
+   "total": 18.0,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 45
+  },
+  {
+   "id": "P009",
+   "data": "2026-10-22T19:51",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 2,
+     "preco": 9.5
+    }
+   ],
+   "total": 53.9,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 40
+  },
+  {
+   "id": "P006",
+   "data": "2026-10-22T19:59",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    }
+   ],
+   "total": 63.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 37
+  },
+  {
+   "id": "P014",
+   "data": "2026-10-22T21:37",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Moqueca Capixaba Level Max",
+     "qtd": 1,
+     "preco": 62.0
+    }
+   ],
+   "total": 62.0,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 47
+  },
+  {
+   "id": "P017",
+   "data": "2026-10-23T11:06",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    }
+   ],
+   "total": 22.5,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 32
+  },
+  {
+   "id": "P023",
+   "data": "2026-10-23T18:22",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    }
+   ],
+   "total": 9.5,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 42
+  },
+  {
+   "id": "P028",
+   "data": "2026-10-23T18:51",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 2,
+     "preco": 22.5
+    }
+   ],
+   "total": 45.0,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 50
+  },
+  {
+   "id": "P029",
+   "data": "2026-10-23T19:08",
+   "bairro": "Jardim da Penha",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 34.9,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 42
+  },
+  {
+   "id": "P035",
+   "data": "2026-10-23T19:51",
+   "bairro": "Jardim da Penha",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    }
+   ],
+   "total": 40.5,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 45
+  },
+  {
+   "id": "P033",
+   "data": "2026-10-23T20:07",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 2,
+     "preco": 34.9
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    }
+   ],
+   "total": 97.3,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 35
+  },
+  {
+   "id": "P004",
+   "data": "2026-10-23T21:08",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Poção de Açaí",
+     "qtd": 1,
+     "preco": 22.5
+    }
+   ],
+   "total": 68.4,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 35
+  },
+  {
+   "id": "P055",
+   "data": "2026-10-24T18:09",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 2,
+     "preco": 34.9
+    }
+   ],
+   "total": 87.8,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 42
+  },
+  {
+   "id": "P013",
+   "data": "2026-10-24T18:14",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 34.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 35
+  },
+  {
+   "id": "P039",
+   "data": "2026-10-24T18:32",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    }
+   ],
+   "total": 91.8,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 50
+  },
+  {
+   "id": "P024",
+   "data": "2026-10-24T19:22",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Torta de Sururu",
+     "qtd": 1,
+     "preco": 39.9
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    }
+   ],
+   "total": 49.4,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 35
+  },
+  {
+   "id": "P010",
+   "data": "2026-10-24T20:19",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 2,
+     "preco": 9.5
+    },
+    {
+     "item": "Moqueca Capixaba Level Max",
+     "qtd": 2,
+     "preco": 62.0
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    }
+   ],
+   "total": 152.5,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 60
+  },
+  {
+   "id": "P003",
+   "data": "2026-10-24T20:37",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Poção de Açaí",
+     "qtd": 2,
+     "preco": 22.5
+    }
+   ],
+   "total": 45.0,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 35
+  },
+  {
+   "id": "P018",
+   "data": "2026-10-25T12:39",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    },
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    }
+   ],
+   "total": 44.4,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 35
+  },
+  {
+   "id": "P030",
+   "data": "2026-10-25T12:52",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 34.9,
+   "tempoPrometidoMin": 40,
+   "tempoEntregaMin": 40
+  },
+  {
+   "id": "P042",
+   "data": "2026-10-25T12:52",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Torta de Sururu",
+     "qtd": 1,
+     "preco": 39.9
+    },
+    {
+     "item": "Combo Level Up",
+     "qtd": 2,
+     "preco": 45.9
+    }
+   ],
+   "total": 131.7,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 50
+  },
+  {
+   "id": "P041",
+   "data": "2026-10-25T12:56",
+   "bairro": "Laranjeiras",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 34.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 32
+  },
+  {
+   "id": "P021",
+   "data": "2026-10-25T13:33",
+   "bairro": "Mata da Praia",
+   "itens": [
+    {
+     "item": "Cookie Moeda de Ouro",
+     "qtd": 1,
+     "preco": 9.5
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    }
+   ],
+   "total": 27.5,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 45
+  },
+  {
+   "id": "P019",
+   "data": "2026-10-25T18:29",
+   "bairro": "Jardim da Penha",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    }
+   ],
+   "total": 80.8,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 47
+  },
+  {
+   "id": "P056",
+   "data": "2026-10-25T19:36",
+   "bairro": "Jardim Camburi",
+   "itens": [
+    {
+     "item": "Torta de Sururu",
+     "qtd": 1,
+     "preco": 39.9
+    }
+   ],
+   "total": 39.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 27
+  },
+  {
+   "id": "P020",
+   "data": "2026-10-25T20:10",
+   "bairro": "Centro da Serra",
+   "itens": [
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    },
+    {
+     "item": "Hambúrguer 8-bit",
+     "qtd": 1,
+     "preco": 34.9
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    }
+   ],
+   "total": 87.8,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 40
+  },
+  {
+   "id": "P027",
+   "data": "2026-10-25T20:25",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Combo Level Up",
+     "qtd": 1,
+     "preco": 45.9
+    },
+    {
+     "item": "Batata Power-Up",
+     "qtd": 1,
+     "preco": 18.0
+    }
+   ],
+   "total": 63.9,
+   "tempoPrometidoMin": 35,
+   "tempoEntregaMin": 27
+  },
+  {
+   "id": "P022",
+   "data": "2026-10-25T21:48",
+   "bairro": "Praia do Canto",
+   "itens": [
+    {
+     "item": "Torta de Sururu",
+     "qtd": 2,
+     "preco": 39.9
+    }
+   ],
+   "total": 79.8,
+   "tempoPrometidoMin": 45,
+   "tempoEntregaMin": 45
+  }
+ ]
+}
